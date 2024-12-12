@@ -4,7 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indus Valley Civilization Facts</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .category-filter {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        select {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        #facts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .fact-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .fact-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #3498db;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,10 +74,154 @@
         </div>
         <div id="facts-container"></div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const indusData = {
+            "indus_civilization_facts": [
+                {
+                    "id": 1,
+                    "fact": "The Indus Valley Civilization flourished between 3300-1300 BCE, making it one of the world's oldest urban civilizations",
+                    "category": "timeline"
+                },
+                {
+                    "id": 2,
+                    "fact": "The two major cities of this civilization were Mohenjo-daro and Harappa, located in present-day Pakistan",
+                    "category": "urban_centers"
+                },
+                {
+                    "id": 3,
+                    "fact": "They developed one of the first systems of uniform weights and measures, using the decimal system",
+                    "category": "technology"
+                },
+                {
+                    "id": 4,
+                    "fact": "The Indus script remains undeciphered to this day, with over 400 basic signs",
+                    "category": "writing_system"
+                },
+                {
+                    "id": 5,
+                    "fact": "The civilization had sophisticated urban planning with grid-pattern streets and advanced drainage systems",
+                    "category": "architecture"
+                },
+                {
+                    "id": 6,
+                    "fact": "They were among the first to develop a system of uniform weights and measures",
+                    "category": "technology"
+                },
+                {
+                    "id": 7,
+                    "fact": "The Great Bath at Mohenjo-daro is one of the earliest public water tanks in the ancient world",
+                    "category": "architecture"
+                },
+                {
+                    "id": 8,
+                    "fact": "Evidence suggests they practiced dentistry as early as 7000 BCE",
+                    "category": "medicine"
+                },
+                {
+                    "id": 9,
+                    "fact": "The civilization covered an area larger than ancient Egypt and Mesopotamia combined",
+                    "category": "geography"
+                },
+                {
+                    "id": 10,
+                    "fact": "They developed sophisticated pottery and metallurgy techniques, including bronze and copper work",
+                    "category": "crafts"
+                },
+                {
+                    "id": 11,
+                    "fact": "The cities had elaborate water conservation systems and public baths",
+                    "category": "infrastructure"
+                },
+                {
+                    "id": 12,
+                    "fact": "Archaeological evidence suggests they were skilled in bead making and jewelry crafting",
+                    "category": "crafts"
+                },
+                {
+                    "id": 13,
+                    "fact": "They domesticated several animals including cattle, buffalo, sheep, goats, and elephants",
+                    "category": "agriculture"
+                },
+                {
+                    "id": 14,
+                    "fact": "The civilization had a sophisticated system of town planning with streets laid out in perfect grid patterns",
+                    "category": "urban_planning"
+                },
+                {
+                    "id": 15,
+                    "fact": "They developed advanced techniques for handicraft products using terracotta, bronze, and gold",
+                    "category": "technology"
+                },
+                {
+                    "id": 16,
+                    "fact": "Evidence suggests they had a complex social structure and possibly a centralized government",
+                    "category": "society"
+                },
+                {
+                    "id": 17,
+                    "fact": "The civilization was one of the first to develop sophisticated sewage and drainage systems",
+                    "category": "infrastructure"
+                },
+                {
+                    "id": 18,
+                    "fact": "They cultivated various crops including wheat, barley, dates, melons, and cotton",
+                    "category": "agriculture"
+                },
+                {
+                    "id": 19,
+                    "fact": "Seals discovered suggest they had extensive trade networks extending to Mesopotamia",
+                    "category": "commerce"
+                },
+                {
+                    "id": 20,
+                    "fact": "The decline of the civilization might have been due to climate change and changing river patterns",
+                    "category": "history"
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const factsContainer = document.getElementById('facts-container');
+            const categorySelect = document.getElementById('category');
+            
+            // Get unique categories
+            const categories = [...new Set(indusData.indus_civilization_facts.map(fact => fact.category))];
+            
+            // Populate category filter
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category.replace('_', ' ').toUpperCase();
+                categorySelect.appendChild(option);
+            });
+
+            // Display facts function
+            function displayFacts(category = 'all') {
+                factsContainer.innerHTML = '';
+                
+                indusData.indus_civilization_facts
+                    .filter(fact => category === 'all' || fact.category === category)
+                    .forEach(fact => {
+                        const factCard = document.createElement('div');
+                        factCard.className = 'fact-card';
+                        factCard.innerHTML = `
+                            <h3>Fact #${fact.id}</h3>
+                            <p>${fact.fact}</p>
+                            <span class="category-tag">${fact.category.replace('_', ' ').toUpperCase()}</span>
+                        `;
+                        factsContainer.appendChild(factCard);
+                    });
+            }
+
+            // Initial display
+            displayFacts();
+
+            // Filter change event
+            categorySelect.addEventListener('change', (e) => {
+                displayFacts(e.target.value);
+            });
+        });
+    </script>
 </body>
 </html>
-
-
-
-  
